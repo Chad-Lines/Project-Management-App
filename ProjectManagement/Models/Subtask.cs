@@ -9,5 +9,6 @@ namespace ProjectManagement.Models
 {
     internal class Subtask : Task
     {
+        public int SuperTaskId { get; set; }
     }
 }

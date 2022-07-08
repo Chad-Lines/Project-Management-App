@@ -9,5 +9,6 @@ namespace ProjectManagement.Models
 {
     internal class Milestone : Task
     {
+        public string Category { get; set; }
     }
 }
