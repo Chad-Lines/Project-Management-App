@@ -7,7 +7,7 @@ using SQLite;
 
 namespace ProjectManagement.Models
 {
-    internal class Update
+    public class Update
     {
         public int Id { get; set; }
         public int CreatedUserId { get; set; }

@@ -7,7 +7,7 @@ using SQLite;
 
 namespace ProjectManagement.Models
 {
-    internal class Milestone : Task
+    public class Milestone : Task
     {
         public string Category { get; set; }
     }
