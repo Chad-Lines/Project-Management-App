@@ -7,7 +7,7 @@ using SQLite;
 
 namespace ProjectManagement.Services
 {
-    internal class DatabaseService
+    public class DatabaseService
     {
     }
 }
