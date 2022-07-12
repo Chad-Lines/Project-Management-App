@@ -9,19 +9,14 @@ namespace ProjectManagement.Services
 {
     internal class PasswordSecurityService
     {
-        public static string SecurePassword(string password)
-        {
-            // Salt the password
-            string saltedPassword = SaltPassword(password);
+       // Function: The user-creation script should:
+       // 1. Get the salt for the password (String salt = SaltPassword();)
+       // 2. Save the password and the salt to the database (separately)
+       // 3. Combine the password with the salt (saltedPassword = password + salt;)
+       // 4. Hash the salted password (passwordHash = HashPassword(saltedPassword);) 
+       // 5. Save the hash to the database
 
-            // Hash the salted password
-            string hashedSaltedPassword = HashPassword(saltedPassword);
-
-            // Return the salted, hashed password
-            return hashedSaltedPassword;
-        }
-
-        public static string SaltPassword(string password)
+        public static string GenerateSalt()
         {            
             Random rand = new Random();                             // The object used to randomize output
             String chars = "abcdefghijklmnopqrstuvwxyz0123456789";  // The characters from which to select
@@ -34,7 +29,7 @@ namespace ProjectManagement.Services
                 salt += chars[x];                                   // Append the character at the random index to build the salt string
             }
 
-            return password + salt;                                 // Return the salted password
+            return salt;                                 // Return the salted password
         }
 
         public static string HashPassword(string saltedPassword)
