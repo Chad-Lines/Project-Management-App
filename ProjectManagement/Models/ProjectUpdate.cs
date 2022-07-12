@@ -6,17 +6,13 @@ using System.Threading.Tasks;
 
 namespace ProjectManagement.Models
 {
-    public class Project
+    internal class ProjectUpdate
     {
-        
         public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public string StartDate { get; set; } = string.Empty;
-        public string Status { get; set; } = string.Empty;
-        public string TargetEndDate { get; set; } = string.Empty;
-        public string ActualEndDate { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;        
-        
+        public int RelatedProjectId { get; set; }
+        public int UpdatedByUserId { get; set; }        
+        public string Comment { get; set; } = string.Empty;
+        public string Type { get; set; } = string.Empty;
         // Universal --
         public string CreatedDate { get; set; } = string.Empty;
         public int CreatedByUserId { get; set; }

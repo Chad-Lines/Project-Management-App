@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SQLite;
 
 namespace ProjectManagement.Models
 {
-    public class Subtask : Task
+    internal class Report
     {
-        public int SuperTaskId { get; set; }
+
     }
 }

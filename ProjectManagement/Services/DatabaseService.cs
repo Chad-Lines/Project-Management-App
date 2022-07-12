@@ -3,21 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SQLite;
+using MySql.Data.MySqlClient;
+using System.ComponentModel;
+using System.Data;
 
 namespace ProjectManagement.Services
 {
     public class DatabaseService
     {
 
-        private static SQLiteAsyncConnection _conn;
-
-        static async Task Init()
+        private static void Init()
         {
-            // Initializing the database
-
-            // Setting the path to the database
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
         }
 
