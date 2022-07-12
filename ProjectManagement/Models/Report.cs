@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace ProjectManagement.Models
 {
-    internal class Report
+    public class Report
     {
-
+        public string Name { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public List<Models.Issue>? IssueResults;
+        public List<Models.Project>? ProjectResults;
+        public List<Models.User>? UserResults;
     }
 }
