@@ -19,6 +19,10 @@ namespace ProjectManagement.Views
             // Hide the error labels
             lblPassword.Hide();
             lblEmail.Hide();
+
+            // Hiding the password characters
+            tbPassword.PasswordChar = '*'; 
+            tbPasswordConfirm.PasswordChar = '*';
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -50,8 +54,8 @@ namespace ProjectManagement.Views
                         newUser.CreatedDate = DateTime.Now.ToString();
                         newUser.CreatedByUserId = 1;                    // UPDATE!!!
                         newUser.ModifiedDate = DateTime.Now.ToString();
-                        newUser.ModifiedByUserId = 1;                   // UPDATE!!!
-
+                        newUser.ModifiedByUserId = 1;                   // UPDATE!!!                      
+                                                
                         // Save the user to the database and close the window
                         // Services.DatabaseOperations.AddUser(newUser);
                         this.Close();
