@@ -18,6 +18,10 @@ namespace ProjectManagement.Services
         }
 
         #region USER OPERATIONS
+        private static bool AddUser(Models.User user)
+        {
+            return true;
+        }
 
         #endregion
 
