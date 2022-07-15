@@ -1,0 +1,44 @@
+C:\Users\chadl\source\repos\Project Management\obj\Debug\net6.0-windows\Project Management.csproj.AssemblyReference.cache
+C:\Users\chadl\source\repos\Project Management\obj\Debug\net6.0-windows\Project_Management.Views.UserAdd.resources
+C:\Users\chadl\source\repos\Project Management\obj\Debug\net6.0-windows\Project Management.csproj.GenerateResource.cache
+C:\Users\chadl\source\repos\Project Management\obj\Debug\net6.0-windows\Project Management.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\chadl\source\repos\Project Management\obj\Debug\net6.0-windows\Project Management.AssemblyInfoInputs.cache
+C:\Users\chadl\source\repos\Project Management\obj\Debug\net6.0-windows\Project Management.AssemblyInfo.cs
+C:\Users\chadl\source\repos\Project Management\obj\Debug\net6.0-windows\Project Management.csproj.CoreCompileInputs.cache
+C:\Users\chadl\source\repos\Project Management\bin\Debug\net6.0-windows\Project Management.exe
+C:\Users\chadl\source\repos\Project Management\bin\Debug\net6.0-windows\Project Management.deps.json
+C:\Users\chadl\source\repos\Project Management\bin\Debug\net6.0-windows\Project Management.runtimeconfig.json
+C:\Users\chadl\source\repos\Project Management\bin\Debug\net6.0-windows\Project Management.dll
+C:\Users\chadl\source\repos\Project Management\bin\Debug\net6.0-windows\Project Management.pdb
+C:\Users\chadl\source\repos\Project Management\obj\Debug\net6.0-windows\Project Management.dll
+C:\Users\chadl\source\repos\Project Management\obj\Debug\net6.0-windows\refint\Project Management.dll
+C:\Users\chadl\source\repos\Project Management\obj\Debug\net6.0-windows\Project Management.pdb
+C:\Users\chadl\source\repos\Project Management\obj\Debug\net6.0-windows\Project Management.genruntimeconfig.cache
+C:\Users\chadl\source\repos\Project Management\obj\Debug\net6.0-windows\ref\Project Management.dll
+C:\Users\chadl\source\repos\Project Management App\bin\Debug\net6.0-windows\Project Management.exe
+C:\Users\chadl\source\repos\Project Management App\bin\Debug\net6.0-windows\Project Management.deps.json
+C:\Users\chadl\source\repos\Project Management App\bin\Debug\net6.0-windows\Project Management.runtimeconfig.json
+C:\Users\chadl\source\repos\Project Management App\bin\Debug\net6.0-windows\Project Management.dll
+C:\Users\chadl\source\repos\Project Management App\bin\Debug\net6.0-windows\Project Management.pdb
+C:\Users\chadl\source\repos\Project Management App\obj\Debug\net6.0-windows\Project Management.csproj.AssemblyReference.cache
+C:\Users\chadl\source\repos\Project Management App\obj\Debug\net6.0-windows\Project_Management.Views.UserAdd.resources
+C:\Users\chadl\source\repos\Project Management App\obj\Debug\net6.0-windows\Project Management.csproj.GenerateResource.cache
+C:\Users\chadl\source\repos\Project Management App\obj\Debug\net6.0-windows\Project Management.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\chadl\source\repos\Project Management App\obj\Debug\net6.0-windows\Project Management.AssemblyInfoInputs.cache
+C:\Users\chadl\source\repos\Project Management App\obj\Debug\net6.0-windows\Project Management.AssemblyInfo.cs
+C:\Users\chadl\source\repos\Project Management App\obj\Debug\net6.0-windows\Project Management.csproj.CoreCompileInputs.cache
+C:\Users\chadl\source\repos\Project Management App\obj\Debug\net6.0-windows\Project Management.dll
+C:\Users\chadl\source\repos\Project Management App\obj\Debug\net6.0-windows\refint\Project Management.dll
+C:\Users\chadl\source\repos\Project Management App\obj\Debug\net6.0-windows\Project Management.pdb
+C:\Users\chadl\source\repos\Project Management App\obj\Debug\net6.0-windows\Project Management.genruntimeconfig.cache
+C:\Users\chadl\source\repos\Project Management App\obj\Debug\net6.0-windows\ref\Project Management.dll
+C:\Users\chadl\source\repos\Project Management App\bin\Debug\net6.0-windows\Project Management.dll.config
+C:\Users\chadl\source\repos\Project Management App\bin\Debug\net6.0-windows\BouncyCastle.Crypto.dll
+C:\Users\chadl\source\repos\Project Management App\bin\Debug\net6.0-windows\Google.Protobuf.dll
+C:\Users\chadl\source\repos\Project Management App\bin\Debug\net6.0-windows\K4os.Compression.LZ4.dll
+C:\Users\chadl\source\repos\Project Management App\bin\Debug\net6.0-windows\K4os.Compression.LZ4.Streams.dll
+C:\Users\chadl\source\repos\Project Management App\bin\Debug\net6.0-windows\K4os.Hash.xxHash.dll
+C:\Users\chadl\source\repos\Project Management App\bin\Debug\net6.0-windows\MySql.Data.dll
+C:\Users\chadl\source\repos\Project Management App\bin\Debug\net6.0-windows\Ubiety.Dns.Core.dll
+C:\Users\chadl\source\repos\Project Management App\bin\Debug\net6.0-windows\ZstdNet.dll
+C:\Users\chadl\source\repos\Project Management App\obj\Debug\net6.0-windows\Project Management.csproj.CopyComplete
