@@ -58,13 +58,20 @@ namespace Project_Management.Services.DatabaseOperations
         }
 
         #region Read Operations
-        private static List<Models.User> GetAll()
+
+        public static int GetUserId(string un, string hash)
+        {
+
+            return 1;
+        }
+
+        public static List<Models.User> GetAll()
         {
             List<Models.User> Users = new List<Models.User>();
             return Users;
         }
 
-        private static List<Models.User> GetAllPerGroup(int groupId)
+        public static List<Models.User> GetAllPerGroup(int groupId)
         {
             List<Models.User> Users = new List<Models.User>();
             return Users;
@@ -72,13 +79,13 @@ namespace Project_Management.Services.DatabaseOperations
         #endregion
 
         // Update Operation
-        private static bool Update(int id, Models.User user)
+        public static bool Update(int id, Models.User user)
         {
             return false;
         }
 
         // Delete Operations
-        private static bool Delete(int id)
+        public static bool Delete(int id)
         {
             return false;
         }
