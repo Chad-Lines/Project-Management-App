@@ -101,7 +101,10 @@ namespace Project_Management.Views
             newUser.ModifiedByUserId = 1;
 
             // Add the test user to the database
-            Services.DatabaseService.AddUser(newUser);
+            bool success = Services.DatabaseService.AddUser(newUser);
+
+            if (success == true) { return; }
+            else { MessageBox.Show("Username already chosen."); }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
