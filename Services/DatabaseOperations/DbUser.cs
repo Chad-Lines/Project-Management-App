@@ -9,6 +9,10 @@ namespace Project_Management.Services.DatabaseOperations
 {
     public class DbUser
     {
+        public static int _userId = 1;          // The userid
+        public static string _username = "test";// the username
+
+
         // Create Operation
         public static bool Add(int Id, Models.User user)
         {
@@ -59,10 +63,95 @@ namespace Project_Management.Services.DatabaseOperations
 
         #region Read Operations
 
-        public static int GetUserId(string un, string hash)
+        public static int GetUserId(string un)
         {
+            // Query to get the id based on the username
+            string query =
+                $"select id from user " +
+                $"where username = '{un}';";
 
-            return 1;
+            // Try to execute the query
+            try
+            {
+                // Setting the up the db connection
+                MySqlConnection conn = DatabaseService.DbConnect(); // Getting the connection parameters
+                DatabaseService.TurnOffForeignKeyChecks();          // Turn off foreign key checks (admin task)
+                MySqlCommand cmd = new MySqlCommand(query, conn);   // Create the MySql query 
+
+                // Getting the user Id from the database
+                MySqlDataReader dr = cmd.ExecuteReader();           // Executing the query
+                dr.Read();                                          // Capturing the output of the query
+                _userId = ((int)dr[0]);                             // Assigning the _userId varible as approrpriate
+                                                                    // [0] refers to the first column of the results
+                // Returning the userId 
+                return _userId;
+            }
+            // If there are any problems executing the query...
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);  // Show the error in the console   
+                return 0;               // Set the userId to 0 (a non-existant id)
+            }
+        }
+
+        public static string GetUserSalt(int uid)
+        {
+            string query =
+                $"select passwordsalt from user " +
+                $"where id = {uid};";
+
+            // Try to execute the query
+            try
+            {
+                // Setting the up the db connection
+                MySqlConnection conn = DatabaseService.DbConnect(); 
+                DatabaseService.TurnOffForeignKeyChecks();          
+                MySqlCommand cmd = new MySqlCommand(query, conn);   
+
+                // Getting the user Id from the database
+                MySqlDataReader dr = cmd.ExecuteReader();           
+                dr.Read();                                          
+                string salt = (string)dr[0];                     
+                
+                // Return the salt
+                return salt;
+            }
+            // If there are any problems executing the query...
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);  // Show the error in the console   
+                return "";
+            }
+        }
+
+        public static string GetUserPasswordHash(int uid)
+        {
+            string query =
+                $"select passwordhash from user " +
+                $"where id = {uid};";
+
+            // Try to execute the query
+            try
+            {
+                // Setting the up the db connection
+                MySqlConnection conn = DatabaseService.DbConnect();
+                DatabaseService.TurnOffForeignKeyChecks();
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+
+                // Getting the user Id from the database
+                MySqlDataReader dr = cmd.ExecuteReader();
+                dr.Read();
+                string hash = (string)dr[0];
+
+                // Return the salt
+                return hash;
+            }
+            // If there are any problems executing the query...
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);  // Show the error in the console   
+                return "";
+            }
         }
 
         public static List<Models.User> GetAll()

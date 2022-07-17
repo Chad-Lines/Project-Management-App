@@ -28,13 +28,32 @@ namespace Project_Management.Views
             
             // If the username or password are empty, then show the error
             if (string.IsNullOrEmpty(un) || string.IsNullOrEmpty(pw)) { lblError.Show(); }
+
             // If the username and password are not empty, then try to authenticate
             else { AuthenticateUser(un, pw); }
         }
 
         private void AuthenticateUser(string un, string pw)
+        {            
+            int uid = Services.DatabaseService.GetUserId(un);                                       // Check the username and get the user id
+            if (uid <= 0) { lblError.Show(); }                                                      // If the uid is not legitimate, show the error
+            else
+            {                
+                string salt = Services.DatabaseService.GetUserSalt(uid);                            // Get the salt from the database
+                string dbHash = Services.DatabaseService.GetUserPasswordHash(uid);                  // Get database hash
+                string saltedPassword = pw + salt;                                                  // Add salt to password
+                string inputHash = Services.PasswordSecurityService.HashPassword(saltedPassword);   // Hash salted password
+                if (inputHash == dbHash) { LaunchDashboard(); }                                     // Check hash against database hash
+                else { lblError.Show(); }
+            }
+        }
+
+        private void LaunchDashboard()
         {
-            
+            Dashboard dashboard = new Dashboard();              // Launch dashboard
+            dashboard.FormClosed += (s, args) => this.Close();  // This will close the login form when the dashboard is closed
+            dashboard.Show();                                   // Show the dashboard
+            this.Hide();                                        // Hide the login page
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

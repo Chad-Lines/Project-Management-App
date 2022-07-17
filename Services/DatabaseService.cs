@@ -61,6 +61,21 @@ namespace Project_Management.Services
             else return false;
         }
 
+        public static int GetUserId(string un)
+        {
+            return DatabaseOperations.DbUser.GetUserId(un);
+        }
+
+        public static string GetUserSalt(int id)
+        {
+            return DatabaseOperations.DbUser.GetUserSalt(id);
+        }
+
+        public static string GetUserPasswordHash(int id)
+        {
+            return DatabaseOperations.DbUser.GetUserPasswordHash(id);
+        }
+
         #endregion
 
         #region PROJECT OPERATIONS

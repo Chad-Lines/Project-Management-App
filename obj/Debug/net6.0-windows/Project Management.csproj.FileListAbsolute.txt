@@ -42,3 +42,5 @@ C:\Users\chadl\source\repos\Project Management App\bin\Debug\net6.0-windows\MySq
 C:\Users\chadl\source\repos\Project Management App\bin\Debug\net6.0-windows\Ubiety.Dns.Core.dll
 C:\Users\chadl\source\repos\Project Management App\bin\Debug\net6.0-windows\ZstdNet.dll
 C:\Users\chadl\source\repos\Project Management App\obj\Debug\net6.0-windows\Project Management.csproj.CopyComplete
+C:\Users\chadl\source\repos\Project Management App\obj\Debug\net6.0-windows\Project_Management.Views.Dashboard.resources
+C:\Users\chadl\source\repos\Project Management App\obj\Debug\net6.0-windows\Project_Management.Views.Login.resources
