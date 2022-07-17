@@ -17,8 +17,8 @@ namespace Project_Management.Views
             InitializeComponent();
 
             // Hiding the test button by default
-            btnTest.Enabled = false;
-            btnTest.Visible = false;
+            //btnTest.Enabled = false;
+            //btnTest.Visible = false;
 
             // Hiding the password characters
             tbPassword.PasswordChar = '*';
@@ -56,9 +56,16 @@ namespace Project_Management.Views
                         newUser.ModifiedDate = DateTime.Now;
                         newUser.ModifiedByUserId = 1;           // UPDATE!!!                      
 
-                        // Save the user to the database and close the window
-                        // Services.DatabaseOperations.AddUser(newUser);
-                        this.Close();
+                        // Attempt to add the user to the database
+                        bool userAdded = Services.DatabaseService.AddUser(newUser);
+
+                        // Alert the user whether the user was created or not
+                        if (userAdded == false) { MessageBox.Show("User not created", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+                        else
+                        {
+                            MessageBox.Show("User Created Successfully.");
+                            this.Close();
+                        }
                     }
                     else
                     {
@@ -100,11 +107,13 @@ namespace Project_Management.Views
             newUser.ModifiedDate = DateTime.Now;
             newUser.ModifiedByUserId = 1;
 
-            // Add the test user to the database
-            bool success = Services.DatabaseService.AddUser(newUser);
+            // Check if the username already exists
+            bool userAdded = Services.DatabaseService.AddUser(newUser);
 
-            if (success == true) { return; }
-            else { MessageBox.Show("Username already chosen."); }
+            // If the does NOT exist, then the AddUser() function has
+            // input the user into the database
+            if (userAdded == false) { MessageBox.Show("User not created", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            else { MessageBox.Show("User Created Successfully."); }           
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

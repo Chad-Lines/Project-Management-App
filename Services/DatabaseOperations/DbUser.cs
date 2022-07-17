@@ -16,84 +16,59 @@ namespace Project_Management.Services.DatabaseOperations
         // Create Operation
         public static bool Add(int Id, Models.User user)
         {
-            // Used to check if the username already exists
-            bool usernameExists;
+            // Check if the username already exists
+            bool usernameExists = CheckIfUsernameExists(user.UserName);
 
-            // Query to get the id based on the username
-            string unQuery =
-                $"select id from user " +
-                $"where username = '{user.UserName}';";
+            // If the username exists, return false
+            if (usernameExists == true) { return false; }
 
-            // Try to execute the query
-            try
+            // If the username does NOT exist, create the user
+            else
             {
-                // Setting the up the db connection
-                MySqlConnection conn = DatabaseService.DbConnect(); 
-                DatabaseService.TurnOffForeignKeyChecks();          
-                MySqlCommand cmd = new MySqlCommand(unQuery, conn);   
+                // Converting the local time to UTC for easy time-zone adaptation
+                DateTime createdDate = DatabaseService.ConvertToUtcTime(user.CreatedDate);
+                DateTime modifiedDate = DatabaseService.ConvertToUtcTime(user.ModifiedDate);
 
-                // Getting the user Id from the database
-                MySqlDataReader dr = cmd.ExecuteReader();          
-                dr.Read();                                          
-                int id = ((int)dr[0]);              
-                
-                // If this process is successful, then the username already exists...
-                usernameExists = true;
-                return false;
-            }
-            // If there are any problems executing the query...
-            catch (Exception ex1) 
-            { 
-                usernameExists = false;
-                // We only want to create the new user as long as the username doesn't already exist
-                if (usernameExists == false)
+                // The insert string for the user
+                string query =
+                    $"insert into user" +
+                    $"(UserName, FirstName, LastName, Email, PasswordHash, " +
+                    $"PasswordSalt, CreatedDate, CreatedByUserId, ModifyDate, " +
+                    $"ModifyByUserId)" +
+                    $"values ('{user.UserName}', '{user.FirstName}', '{user.LastName}', " +
+                    $"'{user.Email}', '{user.PasswordHash}', '{user.PasswordSalt}', " +
+                    $"@cDate, {user.CreatedByUserId}, @mDate, {user.ModifiedByUserId});"
+                ;
+
+                try
                 {
-                    // Converting the local time to UTC for easy time-zone adaptation
-                    DateTime createdDate = DatabaseService.ConvertToUtcTime(user.CreatedDate);
-                    DateTime modifiedDate = DatabaseService.ConvertToUtcTime(user.ModifiedDate);
-
-                    // The insert string for the user
-                    string idQuery =
-                        $"insert into user" +
-                        $"(UserName, FirstName, LastName, Email, PasswordHash, " +
-                        $"PasswordSalt, CreatedDate, CreatedByUserId, ModifyDate, " +
-                        $"ModifyByUserId)" +
-                        $"values ('{user.UserName}', '{user.FirstName}', '{user.LastName}', " +
-                        $"'{user.Email}', '{user.PasswordHash}', '{user.PasswordSalt}', " +
-                        $"@cDate, {user.CreatedByUserId}, @mDate, {user.ModifiedByUserId});"
-                    ;
-
-                    try
+                    // Using the command that we create, and connecting to the database...
+                    using (var command = new MySqlCommand(query, DatabaseService.DbConnect()))
                     {
-                        // Using the command that we create, and connecting to the database...
-                        using (var command = new MySqlCommand(idQuery, DatabaseService.DbConnect()))
-                        {
-                            // We have to convert the DateTime so that it's compatible with MySQL, then
-                            // we add in the created date and modified date parameters
-                            command.Parameters.Add("@cDate", MySqlDbType.DateTime).Value = createdDate;
-                            command.Parameters.Add("@mDate", MySqlDbType.DateTime).Value = modifiedDate;
+                        // We have to convert the DateTime so that it's compatible with MySQL, then
+                        // we add in the created date and modified date parameters
+                        command.Parameters.Add("@cDate", MySqlDbType.DateTime).Value = createdDate;
+                        command.Parameters.Add("@mDate", MySqlDbType.DateTime).Value = modifiedDate;
 
-                            // Execute the query
-                            command.ExecuteNonQuery();
+                        // Execute the query
+                        command.ExecuteNonQuery();
 
-                            // ADD: LOGGING FEATURES FOR SUCCESS
-                            // ADD: AUDITING FEATURES FOR SUCCESS
+                        // ADD: LOGGING FEATURES FOR SUCCESS
+                        // ADD: AUDITING FEATURES FOR SUCCESS
 
-                            // Return that the insert was successful 
-                            return true;
-                        }
-                    }
-                    catch (Exception ex2)
-                    {
-                        // ADD: LOGGING FEATURES FOR FAILURE
-                        return false;
+                        // Return that the insert was successful 
+                        return true;
                     }
                 }
-                else
+                catch (Exception ex)
                 {
+                    // ADD: LOGGING FEATURES FOR FAILURE
+
+                    // If the insert fails, then we write the failure, and return false
+                    Console.WriteLine(ex);
                     return false;
                 }
-            }                           
+            }
         }
 
         #region Read Operations
@@ -213,5 +188,35 @@ namespace Project_Management.Services.DatabaseOperations
         {
             return false;
         }
+
+        #region Helper Operations
+        public static bool CheckIfUsernameExists(string un)
+        {
+            // Query to get the count of records with this username
+            string unQuery =
+                $"select count(*) from user " +
+                $"where username = '{un}';";            
+            
+            // Setting the up the db connection
+            MySqlConnection conn = DatabaseService.DbConnect();
+            DatabaseService.TurnOffForeignKeyChecks();
+            MySqlCommand cmd = new MySqlCommand(unQuery, conn);
+
+            // Getting the user Id from the database
+            MySqlDataReader dr = cmd.ExecuteReader();
+            dr.Read();
+
+            // Casting as a long instead of an int is necessary because of mismatching types between
+            // C# and MySql (the return type of count(*) is Int64. Casting as an int results in error:
+            // "System.InvalidCastException: 'Unable to cast object of type 'System.Int64' to type
+            // 'System.Int32'.'"
+            long count = ((long)dr[0]); 
+
+            // If the count is greater than 0 (i.e. the username exists) return true
+            if (count > 0) { return true; }
+            else { return false; }            
+        }
+
+        #endregion
     }
 }
