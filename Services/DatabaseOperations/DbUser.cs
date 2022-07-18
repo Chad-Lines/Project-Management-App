@@ -12,7 +12,6 @@ namespace Project_Management.Services.DatabaseOperations
         public static int _userId = 1;          // The userid
         public static string _username = "test";// the username
 
-
         // Create Operation
         public static bool Add(int Id, Models.User user)
         {
@@ -210,11 +209,20 @@ namespace Project_Management.Services.DatabaseOperations
             // C# and MySql (the return type of count(*) is Int64. Casting as an int results in error:
             // "System.InvalidCastException: 'Unable to cast object of type 'System.Int64' to type
             // 'System.Int32'.'"
-            long count = ((long)dr[0]); 
+            long count = ((long)dr[0]);
+
+            // Audit parameters
+            int id = _userId;
+            string eventType = "User Add";
+            string targetObjectName = un;
+            string targetObjectType = "User";
+            string sqlCommand = unQuery;
+
+            Services.AuditService.Add(_userId, eventType, targetObjectName, targetObjectType, sqlCommand, count > 0);
 
             // If the count is greater than 0 (i.e. the username exists) return true
             if (count > 0) { return true; }
-            else { return false; }            
+            else { return false; } 
         }
 
         #endregion
