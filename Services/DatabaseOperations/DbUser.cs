@@ -105,32 +105,47 @@ namespace Project_Management.Services.DatabaseOperations
 
         public static Models.User GetUserById(int uid)
         {
-            string query =
+            Models.User user = new Models.User();                                       // Creating the user object
+
+            MySqlCommand query = new MySqlCommand(                                      // Creating the query 
                 $"select * from user " +
-                $"where id = {uid};";
+                $"where id = {uid};", 
+                DatabaseService.DbConnect()
+            );
 
-            // Try to execute the query
-            try
+            using (DatabaseService.DbConnect())                                         // Using the connection...
             {
-                // Setting the up the db connection
-                MySqlConnection conn = DatabaseService.DbConnect();
-                DatabaseService.TurnOffForeignKeyChecks();
-                MySqlCommand cmd = new MySqlCommand(query, conn);
+                using (query)                                                           // Using the query...
+                {
+                    MySqlDataReader reader = query.ExecuteReader();                     // Execute the query
+                    
+                    while (reader.Read())
+                    {
+                        try
+                        {                            
+                            user.Id = Convert.ToInt32(reader[0]);
+                            user.UserName = reader[1].ToString();
+                            user.FirstName = reader[2].ToString();
+                            user.LastName = reader[3].ToString();
+                            user.Email = reader[4].ToString();
+                            user.PasswordHash = reader[5].ToString();
+                            user.PasswordSalt = reader[6].ToString();
 
-                // Getting the user from the database
-                MySqlDataReader dr = cmd.ExecuteReader();
-                dr.Read();
-                string salt = (string)dr[0];
+                            string logMsg = $"User successfully queried with id {uid}"; // Creating the log message
+                            Services.LogService.LogInfo(logMsg, user);                  // Saving the log message
 
-                // Return the salt
-                return salt;
+                            return user;                                                // Return the user
+                        }
+                        catch
+                        {
+                            string logMsg = $"User (id: {uid} query failed";            // Creating the log message
+                            Services.LogService.LogError(logMsg);                       // Saving the log message
+                        }
+                    }
+                }
+                return user;                                                            // Returning the user object
             }
-            // If there are any problems executing the query...
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);  // Show the error in the console   
-                return "";
-            }
+
         }
 
         public static string GetUserSalt(int uid)

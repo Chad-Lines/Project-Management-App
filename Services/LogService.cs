@@ -13,7 +13,7 @@ namespace Project_Management.Services
         // writes database events to the database
         // NOTE: By default the log is stored in \ProjectManagement\bin\Debug\log.txt
 
-        public static void LogError(string str, Object obj)
+        public static void LogError(string str, Object obj = null)
         {
             string strJson = JsonSerializer.Serialize(obj);     // Serializing the object
             string filePath = "log.txt";                        // The path to the log 
@@ -35,7 +35,7 @@ namespace Project_Management.Services
             File.AppendAllText(filePath, msg);                      // Appending the message to the log file
         }
 
-        public static void LogInfo(string str, Object obj)
+        public static void LogInfo(string str, Object obj = null)
         {
             string strJson = JsonSerializer.Serialize(obj);             // Serializing the object
             string filePath = "log.txt";                                // The path to the log 

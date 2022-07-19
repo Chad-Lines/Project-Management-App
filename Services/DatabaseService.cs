@@ -66,6 +66,11 @@ namespace Project_Management.Services
             return DatabaseOperations.DbUser.GetUserId(un);
         }
 
+        public static Models.User GetUserById(int uid)
+        {
+            return DatabaseOperations.DbUser.GetUserById(uid);
+        }
+
         public static string GetUserSalt(int id)
         {
             return DatabaseOperations.DbUser.GetUserSalt(id);

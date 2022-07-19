@@ -45,13 +45,27 @@ namespace Project_Management.Views
                 Services.LogService.LogWarning(logMsg);                                             // Send the message to the log
             }                                                      
             else
-            {                
-                string salt = Services.DatabaseService.GetUserSalt(uid);                            // Get the salt from the database
-                string dbHash = Services.DatabaseService.GetUserPasswordHash(uid);                  // Get database hash
+            {
+                Models.User user = Services.DatabaseService.GetUserById(uid);                       // Getting the user from the database
+
+                string salt = user.PasswordSalt;                                                    // Getting the salt from the database
+                string dbHash = user.PasswordHash;                                                  // Getting database hash
                 string saltedPassword = pw + salt;                                                  // Add salt to password
                 string inputHash = Services.PasswordSecurityService.HashPassword(saltedPassword);   // Hash salted password
-                if (inputHash == dbHash) { LaunchDashboard(); }                                     // Check hash against database hash
-                else { lblError.Show(); }
+
+                if (inputHash == dbHash) 
+                { 
+                    LaunchDashboard();                                                              // Check hash against database hash
+
+                    string logMsg = $"Successful login by user {un} (id: {uid})";                   // The message to log
+                    Services.LogService.LogInfo(logMsg, user);                                      // Log the message
+                }                                     
+                else 
+                { 
+                    lblError.Show();                                                                // Show the error label
+                    string logMsg = $"{un} (id: {uid}) failed login attempt: incorrect password";   // The message to log
+                    Services.LogService.LogWarning(logMsg, user);                                   // Log the message
+                }
             }
         }
 
