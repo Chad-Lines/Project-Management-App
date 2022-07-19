@@ -36,7 +36,14 @@ namespace Project_Management.Views
         private void AuthenticateUser(string un, string pw)
         {            
             int uid = Services.DatabaseService.GetUserId(un);                                       // Check the username and get the user id
-            if (uid <= 0) { lblError.Show(); }                                                      // If the uid is not legitimate, show the error
+            
+            if (uid <= 0) 
+            { 
+                lblError.Show();                                                                    // If the uid is not legitimate, show the error'
+
+                string logMsg = $"Unsuccessful login with username {un}";                           // The log message
+                Services.LogService.LogWarning(logMsg);                                             // Send the message to the log
+            }                                                      
             else
             {                
                 string salt = Services.DatabaseService.GetUserSalt(uid);                            // Get the salt from the database

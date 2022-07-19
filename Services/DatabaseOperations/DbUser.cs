@@ -103,6 +103,36 @@ namespace Project_Management.Services.DatabaseOperations
             }
         }
 
+        public static Models.User GetUserById(int uid)
+        {
+            string query =
+                $"select * from user " +
+                $"where id = {uid};";
+
+            // Try to execute the query
+            try
+            {
+                // Setting the up the db connection
+                MySqlConnection conn = DatabaseService.DbConnect();
+                DatabaseService.TurnOffForeignKeyChecks();
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+
+                // Getting the user from the database
+                MySqlDataReader dr = cmd.ExecuteReader();
+                dr.Read();
+                string salt = (string)dr[0];
+
+                // Return the salt
+                return salt;
+            }
+            // If there are any problems executing the query...
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);  // Show the error in the console   
+                return "";
+            }
+        }
+
         public static string GetUserSalt(int uid)
         {
             string query =

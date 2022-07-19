@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json;
 
 namespace Project_Management.Services
 {
@@ -11,6 +12,41 @@ namespace Project_Management.Services
         // The log service writes ALL events to a local log file, while the audit service
         // writes database events to the database
         // NOTE: By default the log is stored in \ProjectManagement\bin\Debug\log.txt
+
+        public static void LogError(string str, Object obj)
+        {
+            string strJson = JsonSerializer.Serialize(obj);     // Serializing the object
+            string filePath = "log.txt";                        // The path to the log 
+
+            string msg = $"ERROR: {DateTime.Now.ToString()}, " +// The message to log
+                $"Message: {str}, Object:{obj}";           
+
+            File.AppendAllText(filePath, msg);                  // Appending the message to the log file
+        }
+
+        public static void LogWarning(string str, Object obj = null)
+        {
+            string strJson = JsonSerializer.Serialize(obj);         // Serializing the object
+            string filePath = "log.txt";                            // The path to the log 
+
+            string msg = $"WARNING: {DateTime.Now.ToString()}, " +  // The message to log
+                $"Message: {str}, Object:{obj}";
+
+            File.AppendAllText(filePath, msg);                      // Appending the message to the log file
+        }
+
+        public static void LogInfo(string str, Object obj)
+        {
+            string strJson = JsonSerializer.Serialize(obj);             // Serializing the object
+            string filePath = "log.txt";                                // The path to the log 
+
+            string msg = $"INFORMATION: {DateTime.Now.ToString()}, " +  // The message to log
+                $"Message: {str}, Object:{obj}";
+
+            File.AppendAllText(filePath, msg);                          // Appending the message to the log file
+        }
+
+        #region NOT USED
 
         public static bool WriteLoginEvent(string username, bool success)
         {
@@ -48,8 +84,11 @@ namespace Project_Management.Services
             }
             catch
             {
-                return false;
+                string errorMsg = $"Failed attempt to create user {username}."; // The message to send to LogError
+                LogError(errorMsg, user);                                       // Logging the error
+                return false;                                                   // returning false
             }
         }
+        #endregion
     }
 }
