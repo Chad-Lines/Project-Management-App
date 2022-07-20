@@ -9,8 +9,16 @@ namespace Project_Management.Services
 {
     public class LogService
     {
-        // The log service writes ALL events to a local log file, while the audit service
-        // writes database events to the database
+        /// <summary>
+        ///     The log service writes ALL events to a local log file, while the audit service
+        ///     writes database events to the database.
+        ///     - LogError: User action failed due to program error
+        ///     - LogWarning: User action failed due to permissions, mistaken input, or other disallowed action
+        ///     - LogInformation: Any user action
+        /// </summary>
+        /// <param name="str">The specific message to include in the log</param>
+        /// <param name="obj">The object related to the log</param>
+        
         // NOTE: By default the log is stored in \ProjectManagement\bin\Debug\log.txt
 
         public static void LogError(string str, Object obj = null)
