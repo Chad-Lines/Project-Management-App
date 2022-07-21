@@ -17,10 +17,6 @@ namespace Project_Management.Views
             InitializeComponent();
             Services.LogService.Add("Application Launched", "Information"); // Log that the application is launched
 
-            // Hiding the test button by default
-            //btnTest.Enabled = false;
-            //btnTest.Visible = false;
-
             // Hiding the password characters
             tbPassword.PasswordChar = '*';
             tbPasswordConfirm.PasswordChar = '*';
