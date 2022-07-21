@@ -34,19 +34,24 @@ namespace Project_Management.Views
         }
 
         private void AuthenticateUser(string un, string pw)
-        {            
+        {
+            string logMsg;                                                                          // The log message
+            string logType;                                                                         // The log type
+            Models.User user = new Models.User();                                                   // Object to hold the user
+
             int uid = Services.DatabaseService.GetUserId(un);                                       // Check the username and get the user id
             
             if (uid <= 0) 
             { 
                 lblError.Show();                                                                    // If the uid is not legitimate, show the error'
 
-                string logMsg = $"Unsuccessful login with username {un}";                           // The log message
-                Services.LogService.LogWarning(logMsg);                                             // Send the message to the log
+                logMsg = $"Unsuccessful login with username {un}";                                  // The log message
+                logType = "Warning";                                                                // The log type
+                Services.LogService.Add(logMsg, logType);                                           // Logging the event
             }                                                      
             else
             {
-                Models.User user = Services.DatabaseService.GetUserById(uid);                       // Getting the user from the database
+                user = Services.DatabaseService.GetUserById(uid);                                   // Getting the user from the database
 
                 string salt = user.PasswordSalt;                                                    // Getting the salt from the database
                 string dbHash = user.PasswordHash;                                                  // Getting database hash
@@ -57,16 +62,17 @@ namespace Project_Management.Views
                 { 
                     LaunchDashboard();                                                              // Check hash against database hash
 
-                    string logMsg = $"Successful login by user {un} (id: {uid})";                   // The message to log
-                    Services.LogService.LogInfo(logMsg, user);                                      // Log the message
+                    logMsg = $"Successful login by user {un} (id: {uid})";                          // The message to log
+                    logType = "Information";                                                        // The log type
                 }                                     
                 else 
                 { 
                     lblError.Show();                                                                // Show the error label
-                    string logMsg = $"{un} (id: {uid}) failed login attempt: incorrect password";   // The message to log
-                    Services.LogService.LogWarning(logMsg, user);                                   // Log the message
+                    logMsg = $"{un} (id: {uid}) failed login attempt: incorrect password";          // The message to log
+                    logType = "Warning";                                                            // The log type
                 }
             }
+            Services.LogService.Add(logMsg, logType, user);                                         // Log the message
         }
 
         private void LaunchDashboard()

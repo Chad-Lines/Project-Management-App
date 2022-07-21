@@ -15,6 +15,7 @@ namespace Project_Management.Views
         public UserAdd()
         {
             InitializeComponent();
+            Services.LogService.Add("Application Launched", "Information"); // Log that the application is launched
 
             // Hiding the test button by default
             //btnTest.Enabled = false;

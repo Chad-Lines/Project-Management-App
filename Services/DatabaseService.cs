@@ -12,7 +12,7 @@ using System.Runtime.CompilerServices;
 
 namespace Project_Management.Services
 {
-    public class DatabaseService
+    public static class DatabaseService
     {
         // This is the database connection string 
         public static readonly string _constr = ConfigurationManager.ConnectionStrings["localdb"].ConnectionString;

@@ -7,10 +7,14 @@ using MySql.Data.MySqlClient;
 
 namespace Project_Management.Services.DatabaseOperations
 {
-    public class DbUser
+    public static class DbUser
     {
-        public static int _userId = 1;          // The userid
-        public static string _username = "test";// the username
+        public static int _userId = 1;                          // The userid
+        public static string _username = "test";                // the username
+        public static Models.User _user = new Models.User();    // Creating the user object
+
+        private static string _logMsg = "";                     // Setting the log message
+        private static string _logType = "";                    // Setting the log type
 
         // Create Operation
         public static bool Add(int Id, Models.User user)
@@ -52,7 +56,10 @@ namespace Project_Management.Services.DatabaseOperations
                         // Execute the query
                         command.ExecuteNonQuery();
 
-                        // ADD: LOGGING FEATURES FOR SUCCESS
+                        _logMsg = $"User successfully created by user ID: {user.ModifiedByUserId}";
+                        _logType = "Information";
+                        Services.LogService.Add(_logMsg, _logType, _user);
+
                         // ADD: AUDITING FEATURES FOR SUCCESS
 
                         // Return that the insert was successful 
@@ -61,7 +68,9 @@ namespace Project_Management.Services.DatabaseOperations
                 }
                 catch (Exception ex)
                 {
-                    // ADD: LOGGING FEATURES FOR FAILURE
+                    _logMsg = "User creation failed";
+                    _logType = "Warning";
+                    Services.LogService.Add(_logMsg, _logType, _user);
 
                     // If the insert fails, then we write the failure, and return false
                     Console.WriteLine(ex);
@@ -91,7 +100,12 @@ namespace Project_Management.Services.DatabaseOperations
                 MySqlDataReader dr = cmd.ExecuteReader();           // Executing the query
                 dr.Read();                                          // Capturing the output of the query
                 _userId = ((int)dr[0]);                             // Assigning the _userId varible as approrpriate
-                                                                    // [0] refers to the first column of the results
+
+                // Logging the successful operation
+                _logMsg = $"User ID ({_userId}) successfully queried";
+                _logType = "Information";
+                Services.LogService.Add(_logMsg, _logType);
+
                 // Returning the userId 
                 return _userId;
             }
@@ -99,53 +113,58 @@ namespace Project_Management.Services.DatabaseOperations
             catch (Exception ex)
             {
                 Console.WriteLine(ex);  // Show the error in the console   
+
+                // Logging the failed operation
+                _logMsg = $"Failed User ID query on username: {un}";
+                _logType = "Warning";
+                Services.LogService.Add(_logMsg, _logType);
+
                 return 0;               // Set the userId to 0 (a non-existant id)
             }
         }
 
         public static Models.User GetUserById(int uid)
         {
-            Models.User user = new Models.User();                                       // Creating the user object
-
-            MySqlCommand query = new MySqlCommand(                                      // Creating the query 
+            MySqlCommand query = new MySqlCommand(                              // Creating the query 
                 $"select * from user " +
                 $"where id = {uid};", 
                 DatabaseService.DbConnect()
             );
 
-            using (DatabaseService.DbConnect())                                         // Using the connection...
+            using (DatabaseService.DbConnect())                                 // Using the connection...
             {
-                using (query)                                                           // Using the query...
+                using (query)                                                   // Using the query...
                 {
-                    MySqlDataReader reader = query.ExecuteReader();                     // Execute the query
+                    MySqlDataReader reader = query.ExecuteReader();             // Execute the query
                     
                     while (reader.Read())
                     {
                         try
                         {                            
-                            user.Id = Convert.ToInt32(reader[0]);
-                            user.UserName = reader[1].ToString();
-                            user.FirstName = reader[2].ToString();
-                            user.LastName = reader[3].ToString();
-                            user.Email = reader[4].ToString();
-                            user.PasswordHash = reader[5].ToString();
-                            user.PasswordSalt = reader[6].ToString();
+                            _user.Id = Convert.ToInt32(reader[0]);
+                            _user.UserName = reader[1].ToString();
+                            _user.FirstName = reader[2].ToString();
+                            _user.LastName = reader[3].ToString();
+                            _user.Email = reader[4].ToString();
+                            _user.PasswordHash = reader[5].ToString();
+                            _user.PasswordSalt = reader[6].ToString();
 
-                            string logMsg = $"User successfully queried with id {uid}"; // Creating the log message
-                            Services.LogService.LogInfo(logMsg, user);                  // Saving the log message
+                            _logMsg = $"User successfully queried with id {uid}";   // Creating the log message
+                            _logType = "Information";                               // The log type
 
-                            return user;                                                // Return the user
+                            return _user;                                           // Return the user
                         }
                         catch
                         {
-                            string logMsg = $"User (id: {uid} query failed";            // Creating the log message
-                            Services.LogService.LogError(logMsg);                       // Saving the log message
-                        }
+                            _logMsg = $"User (id: {uid} query failed";              // Creating the log message
+                            _logType = "Error";                                     // The log type
+                            Services.LogService.Add(_logMsg, _logType);             // Saving the log message
+                        }                        
                     }
                 }
-                return user;                                                            // Returning the user object
+                LogService.Add(_logMsg, _logType, _user);
+                return _user;                                                        // Returning the user object
             }
-
         }
 
         public static string GetUserSalt(int uid)
