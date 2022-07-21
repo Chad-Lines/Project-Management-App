@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "lAoPHp2usoKP8GmSTs6zJ8seQxt8yJxYeDHkNbV2aTZNduoJKCph2PUp9450zt0BhjL8xPS74ywU+U6yPYyy8w==",
+  "dgSpecHash": "yigv1wr6m5ihpKjEwg8CaQb+S3APHgsy/+hi2OnIGpyyjr/ixC0cqOSjg8vPV3fymLGR4bnGpdI/j/9GxwnCMg==",
   "success": true,
   "projectFilePath": "C:\\Users\\chadl\\source\\repos\\Project Management App\\Project Management.csproj",
   "expectedPackageFiles": [
@@ -9,6 +9,7 @@
     "C:\\Users\\chadl\\.nuget\\packages\\k4os.compression.lz4\\1.2.6\\k4os.compression.lz4.1.2.6.nupkg.sha512",
     "C:\\Users\\chadl\\.nuget\\packages\\k4os.compression.lz4.streams\\1.2.6\\k4os.compression.lz4.streams.1.2.6.nupkg.sha512",
     "C:\\Users\\chadl\\.nuget\\packages\\k4os.hash.xxhash\\1.0.6\\k4os.hash.xxhash.1.0.6.nupkg.sha512",
+    "C:\\Users\\chadl\\.nuget\\packages\\materialskin.2\\2.3.1\\materialskin.2.2.3.1.nupkg.sha512",
     "C:\\Users\\chadl\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\chadl\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
     "C:\\Users\\chadl\\.nuget\\packages\\mysql.data\\8.0.29\\mysql.data.8.0.29.nupkg.sha512",

@@ -44,3 +44,4 @@ C:\Users\chadl\source\repos\Project Management App\bin\Debug\net6.0-windows\Zstd
 C:\Users\chadl\source\repos\Project Management App\obj\Debug\net6.0-windows\Project Management.csproj.CopyComplete
 C:\Users\chadl\source\repos\Project Management App\obj\Debug\net6.0-windows\Project_Management.Views.Dashboard.resources
 C:\Users\chadl\source\repos\Project Management App\obj\Debug\net6.0-windows\Project_Management.Views.Login.resources
+C:\Users\chadl\source\repos\Project Management App\bin\Debug\net6.0-windows\MaterialSkin.dll
