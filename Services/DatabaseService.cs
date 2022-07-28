@@ -35,51 +35,20 @@ namespace Project_Management.Services
             }
         }
 
-        public static DateTime ConvertToLocalTime(DateTime dt)
-        {
-            // Convert from UTC to local so that we can display them per the users'
-            // time zone
-            DateTime localTime = dt.ToLocalTime();
-            return localTime;
-        }
+        // Convert from UTC to local so that we can display them per the users' time zone
+        public static DateTime ConvertToLocalTime(DateTime dt) => dt.ToLocalTime();
 
-        public static DateTime ConvertToUtcTime(DateTime dt)
-        {
-            // Convert times to UTC so that we can display them per the users'
-            // time zone
-            DateTime dateTime = dt.ToUniversalTime();
-            return dateTime;
-        }
+        // Convert times to UTC so that we can display them per the users' time zone
+        public static DateTime ConvertToUtcTime(DateTime dt) => dt.ToUniversalTime();
+
         #endregion
 
         #region USER OPERATIONS
-        public static bool AddUser(Models.User user)
-        {
-            // Try to pass the user over to the DbUser.Add function
-            // and then return whether or not it was successful
-            if (DatabaseOperations.DbUser.Add(1, user)) return true;
-            else return false;
-        }
-
-        public static int GetUserId(string un)
-        {
-            return DatabaseOperations.DbUser.GetUserId(un);
-        }
-
-        public static Models.User GetUserById(int uid)
-        {
-            return DatabaseOperations.DbUser.GetUserById(uid);
-        }
-
-        public static string GetUserSalt(int id)
-        {
-            return DatabaseOperations.DbUser.GetUserSalt(id);
-        }
-
-        public static string GetUserPasswordHash(int id)
-        {
-            return DatabaseOperations.DbUser.GetUserPasswordHash(id);
-        }
+        public static bool AddUser(Models.User user) => DatabaseOperations.DbUser.Add(1, user) ? true : false;
+        public static int GetUserId(string un) =>  DatabaseOperations.DbUser.GetUserId(un);
+        public static Models.User GetUserById(int uid) => DatabaseOperations.DbUser.GetUserById(uid);
+        public static string GetUserSalt(int id) => DatabaseOperations.DbUser.GetUserSalt(id);
+        public static string GetUserPasswordHash(int id) => DatabaseOperations.DbUser.GetUserPasswordHash(id);
 
         #endregion
 
